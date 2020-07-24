@@ -1,0 +1,25 @@
+{
+  "name": "nodejs_01",
+  "version": "1.0.0",
+  "description": "\"Esta es la descripción\"",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jestrade"
+  },
+  "keywords": [
+    "nodejs",
+    "js"
+  ],
+  "author": "@jestrade",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.9.25"
+  }
+}
