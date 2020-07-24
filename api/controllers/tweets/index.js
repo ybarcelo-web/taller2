@@ -79,11 +79,44 @@ const getLastsTweets = (req, res) => {
 const getCommentsCount = (req, res) => {
     const id = req.params.id;
     Tweet.find({_id: id},{"comments": 1})
+    //Tweet.aggregate({$project: { NumberOfElements: { $size:"comments" }}})
     .then((response)=>{
-        res.status(200).send(response[0].comments);
+        res.status(200).send(response.comments);
     })
     .catch((err)=>{
         res.status(500).send(err);
     })
 };
-module.exports = {getTweets, getTweet, newTweet, deleteTweet, newComment, getLastsTweets, getCommentsCount};
+const usuariosMasTweets = (req, res) => {
+	
+	const cantidad = parseInt(req.params.count); 
+	
+	if(cantidad > 0){
+		Tweet.aggregate(
+			[
+				{
+					$group: {
+						_id : "$user",
+						count: { $sum: 1 }
+					}
+				},
+				{ 
+					$sort: { 
+						count: -1 
+					} 
+				},
+				{ $limit : cantidad }
+			],function(err, result) {
+				if (err) {
+					res.send(err);
+				} else {
+					res.json(result);
+				}
+			}
+		);
+	}else{
+		res.status(500).send('Coloque un limite valido');
+	}
+		
+};
+module.exports = {getTweets, getTweet, newTweet, deleteTweet, newComment, getLastsTweets, getCommentsCount, usuariosMasTweets};

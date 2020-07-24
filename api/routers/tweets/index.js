@@ -16,4 +16,6 @@ router.route('/lasts/:nf')
         .get(controller.getLastsTweets);
 router.route('/:id/comments/count')
         .get(controller.getCommentsCount);
+router.route('/top/commenters/:count')
+        .get(controller.usuariosMasTweets);
 module.exports = router;
